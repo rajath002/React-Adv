@@ -8,9 +8,6 @@ function Listdetails() {
 
   const fetchPosts = async () => {
     setLoading(true);
-    // const response = await fetch("https://jsonplaceholder.typicode.com/posts");
-    // const data = await response.json();
-    // setPosts(data);
     const response = await getPosts();
     setPosts(response.data);
     setLoading(false);
@@ -63,7 +60,7 @@ function PostCard(props: IPostCardProps) {
     <div className="post-card" data-testid="post-card">
       <button
         className="delete-post"
-        data-testid="delete-post"
+        data-testid="deletePost"
         onClick={() => props.removePost(props.id)}
       >
         Delete
