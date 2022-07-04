@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { IPost } from "../../interface";
-import { getPosts } from "../../services/posts.api";
+import { getPosts, deletePost } from "../../services/posts.api";
 
 function Listdetails() {
   const [posts, setPosts] = useState<IPost.Post[]>([]);
@@ -14,6 +14,11 @@ function Listdetails() {
     const response = await getPosts();
     setPosts(response.data);
     setLoading(false);
+  };
+
+  const removePost = async (id: number) => {
+    await deletePost(id);
+    setPosts(posts.filter((post) => post.id !== id));
   };
 
   return (
@@ -39,20 +44,33 @@ function Listdetails() {
               className="post-card-container"
             >
               {posts.map((post) => (
-                <div
-                  data-testid="post-card"
-                  className="post-card"
-                  key={post.id}
-                >
-                  <div className="title">{post.title}</div>
-                  <div className="body">{post.body}</div>
-                </div>
+                <PostCard key={post.id} {...post} removePost={removePost} />
               ))}
             </div>
           </div>
         </section>
       </div>
     </>
+  );
+}
+
+interface IPostCardProps extends IPost.Post {
+  removePost: (id: number) => void;
+}
+
+function PostCard(props: IPostCardProps) {
+  return (
+    <div className="post-card" data-testid="post-card">
+      <button
+        className="delete-post"
+        data-testid="delete-post"
+        onClick={() => props.removePost(props.id)}
+      >
+        Delete
+      </button>
+      <div className="title">{props.title}</div>
+      <div className="body">{props.body}</div>
+    </div>
   );
 }
 
