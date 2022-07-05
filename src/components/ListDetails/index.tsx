@@ -1,16 +1,27 @@
 import { useState } from "react";
-import { IPost } from "../../interface";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { IPost, IStore } from "../../interface";
 import { getPosts, deletePost } from "../../services/posts.api";
+import { getPostsList } from "../../store/actions/post.actions";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 
 function Listdetails() {
   const [posts, setPosts] = useState<IPost.Post[]>([]);
   const [loading, setLoading] = useState(false);
+  const postsList = useSelector((state: IStore.Store) => state.posts);
+
+  // const appDispatch: () => AppDispatch = useDispatch;
+  const dispatch = useAppDispatch();
+  // const dispatch = useDispatch();
 
   const fetchPosts = async () => {
     setLoading(true);
     const response = await getPosts();
     setPosts(response.data);
     setLoading(false);
+    // appDispatch(getPostsList());
+    dispatch(getPostsList());
   };
 
   const removePost = async (id: number) => {
@@ -20,6 +31,7 @@ function Listdetails() {
 
   return (
     <>
+      {JSON.stringify(postsList)}
       <div id="posts-page">
         <header>
           <h3>Posts</h3>
