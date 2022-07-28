@@ -1,44 +1,32 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
 import { IPost, IStore } from "../../interface";
-import { getPosts, deletePost } from "../../services/posts.api";
-import { getPostsList } from "../../store/actions/post.actions";
+import { getPostsList, deletePost } from "../../store/actions/post.actions";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 
 function Listdetails() {
-  const [posts, setPosts] = useState<IPost.Post[]>([]);
   const [loading, setLoading] = useState(false);
-  const postsList = useSelector((state: IStore.Store) => state.posts);
 
-  // const appDispatch: () => AppDispatch = useDispatch;
   const dispatch = useAppDispatch();
-  // const dispatch = useDispatch();
+  const storePostsList = useAppSelector<IStore.Store>((state) => state.posts);
 
   const fetchPosts = async () => {
     setLoading(true);
-    const response = await getPosts();
-    setPosts(response.data);
-    setLoading(false);
-    // appDispatch(getPostsList());
     dispatch(getPostsList());
+    setLoading(false);
   };
 
   const removePost = async (id: number) => {
-    await deletePost(id);
-    setPosts(posts.filter((post) => post.id !== id));
+    dispatch(deletePost(id));
   };
 
   return (
     <>
-      {JSON.stringify(postsList)}
       <div id="posts-page">
         <header>
           <h3>Posts</h3>
         </header>
         <section>
           <div className="posts">
-            {/* <h4>Posts</h4> */}
             <button
               name="fetchPosts"
               id="fetchPosts"
@@ -52,7 +40,7 @@ function Listdetails() {
               data-testid="post-card-container"
               className="post-card-container"
             >
-              {posts.map((post) => (
+              {storePostsList.posts.map((post) => (
                 <PostCard key={post.id} {...post} removePost={removePost} />
               ))}
             </div>

@@ -1,14 +1,9 @@
-import {
-  compose,
-  createStore,
-  applyMiddleware,
-  combineReducers,
-  Dispatch,
-  AnyAction,
-} from "redux";
-import thunk from "redux-thunk";
+import { combineReducers } from "redux";
+// import thunk from "redux-thunk";
 import { IStore } from "../interface";
 import { composeWithDevTools } from "redux-devtools-extension";
+
+import { configureStore } from "@reduxjs/toolkit";
 
 const initialState: IStore.Store = {
   posts: [],
@@ -45,18 +40,25 @@ const isDevelopment = process.env.NODE_ENV === "development";
 if (isDevelopment) enhancers.push(composeWithDevTools());
 
 // Combine reducers into one root reducer
+// const rootReducer = combineReducers({
+//   posts: postsReducer,
+// });
 const rootReducer = combineReducers({
   posts: postsReducer,
 });
 
 // add middleware to store
-const middleware: any = [thunk];
+// const middleware: any = [thunk];
+
+const store = configureStore({
+  reducer: rootReducer,
+});
 
 // create store
-let store = createStore(
-  rootReducer,
-  compose(applyMiddleware<Dispatch<AnyAction>, IStore.Store>(...middleware))
-);
+// let store = createStore(
+//   rootReducer,
+//   compose(applyMiddleware<Dispatch<AnyAction>, IStore.Store>(...middleware))
+// );
 
 export default store;
 
