@@ -10,3 +10,13 @@ export const getPostsList = () => {
     });
   };
 };
+
+export const deletePost = (id: number) => {
+  return async (dispatch: Dispatch<unknown>) => {
+    await api.delete(`/posts/${id}`);
+    return dispatch({
+      type: "DELETE_POST",
+      payload: id,
+    });
+  };
+};
