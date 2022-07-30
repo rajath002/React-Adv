@@ -7,3 +7,7 @@ export const getPosts = (): Promise<AxiosResponse<IPost.Post[]>> =>
 
 export const deletePost = (id: number): Promise<AxiosResponse<{}>> =>
   api.delete(`/posts/${id}`);
+
+export const getPostDetails = (
+  id: string
+): Promise<AxiosResponse<IPost.Post>> => api.get(`/posts/${id}`);
