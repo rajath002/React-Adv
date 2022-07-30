@@ -1,5 +1,5 @@
 /* eslint-disable testing-library/no-unnecessary-act */
-import ListDetails from "../../../components/ListDetails";
+import { Listdetails } from "../../../views/ListDetails";
 import { render, screen } from "@testing-library/react";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
@@ -41,7 +41,7 @@ describe("ListDetails", () => {
     printLog("it should render correctly #1");
     const view = render(
       <Provider store={store}>
-        <ListDetails />
+        <Listdetails />
       </Provider>
     );
     expect(view).toMatchSnapshot();
@@ -51,7 +51,7 @@ describe("ListDetails", () => {
     printLog("deleting the post #4");
     render(
       <Provider store={store}>
-        <ListDetails />
+        <Listdetails />
       </Provider>
     );
 
@@ -71,7 +71,7 @@ describe("ListDetails", () => {
     printLog("it should render correctly with posts #2");
     render(
       <Provider store={store}>
-        <ListDetails />
+        <Listdetails />
       </Provider>
     );
     userEvent.click(screen.getByTestId("fetchPosts"));
@@ -83,7 +83,7 @@ describe("ListDetails", () => {
     printLog("it should render correctly with posts and delete #3");
     render(
       <Provider store={store}>
-        <ListDetails />
+        <Listdetails />
       </Provider>
     );
     await act(() => userEvent.click(screen.getByTestId("fetchPosts")));

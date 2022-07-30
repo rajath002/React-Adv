@@ -2,8 +2,9 @@ import { useState } from "react";
 import { IPost, IStore } from "../../interface";
 import { getPostsList, deletePost } from "../../store/actions/post.actions";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+// import classes from "./listDetails.module.scss";
 
-function Listdetails() {
+export function Listdetails() {
   const [loading, setLoading] = useState(false);
 
   const dispatch = useAppDispatch();
@@ -15,8 +16,12 @@ function Listdetails() {
     setLoading(false);
   };
 
-  const removePost = async (id: number) => {
+  const removePost = (id: number) => {
     dispatch(deletePost(id));
+  };
+
+  const openPost = (id: number) => {
+    alert("Open post " + id);
   };
 
   return (
@@ -41,7 +46,12 @@ function Listdetails() {
               className="post-card-container"
             >
               {storePostsList.posts.map((post) => (
-                <PostCard key={post.id} {...post} removePost={removePost} />
+                <PostCard
+                  key={post.id}
+                  {...post}
+                  openPost={openPost}
+                  removePost={removePost}
+                />
               ))}
             </div>
           </div>
@@ -53,6 +63,7 @@ function Listdetails() {
 
 interface IPostCardProps extends IPost.Post {
   removePost: (id: number) => void;
+  openPost: (id: number) => void;
 }
 
 function PostCard(props: IPostCardProps) {
@@ -65,10 +76,15 @@ function PostCard(props: IPostCardProps) {
       >
         Delete
       </button>
+      <button
+        className="open-post"
+        data-testid="open-post"
+        onClick={() => props.openPost(props.id)}
+      >
+        Open
+      </button>
       <div className="title">{props.title}</div>
       <div className="body">{props.body}</div>
     </div>
   );
 }
-
-export default Listdetails;
