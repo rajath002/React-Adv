@@ -53,3 +53,10 @@
   font-weight: bold;
   margin: 0.5rem;
 }
+
+.post-card-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
