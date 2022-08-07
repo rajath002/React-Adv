@@ -5,6 +5,7 @@ import { rest } from "msw";
 import { setupServer } from "msw/node";
 import { act } from "react-dom/test-utils";
 import "@testing-library/jest-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import { BASE_API } from "../../../utils/constants";
 
@@ -40,9 +41,11 @@ describe("ListDetails", () => {
   it("should render correctly", async () => {
     printLog("it should render correctly #1");
     const view = render(
-      <Provider store={store}>
-        <Listdetails />
-      </Provider>
+      <Router>
+        <Provider store={store}>
+          <Listdetails />
+        </Provider>
+      </Router>
     );
     expect(view).toMatchSnapshot();
   });
@@ -50,9 +53,11 @@ describe("ListDetails", () => {
   it("deleting the post", async () => {
     printLog("deleting the post #4");
     render(
-      <Provider store={store}>
-        <Listdetails />
-      </Provider>
+      <Router>
+        <Provider store={store}>
+          <Listdetails />
+        </Provider>
+      </Router>
     );
 
     await act(() => userEvent.click(screen.getByTestId("fetchPosts")));
@@ -70,9 +75,11 @@ describe("ListDetails", () => {
   it("should render correctly with posts", async () => {
     printLog("it should render correctly with posts #2");
     render(
-      <Provider store={store}>
-        <Listdetails />
-      </Provider>
+      <Router>
+        <Provider store={store}>
+          <Listdetails />
+        </Provider>
+      </Router>
     );
     userEvent.click(screen.getByTestId("fetchPosts"));
     await screen.findByText(/qui est esse/i, {}, { timeout: 5000 });
@@ -82,9 +89,11 @@ describe("ListDetails", () => {
   it("should render correctly with posts and delete", async () => {
     printLog("it should render correctly with posts and delete #3");
     render(
-      <Provider store={store}>
-        <Listdetails />
-      </Provider>
+      <Router>
+        <Provider store={store}>
+          <Listdetails />
+        </Provider>
+      </Router>
     );
     await act(() => userEvent.click(screen.getByTestId("fetchPosts")));
     printLog("after act");
