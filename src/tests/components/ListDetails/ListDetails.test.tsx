@@ -101,6 +101,27 @@ describe("ListDetails", () => {
     expect(vc.length).toEqual(100);
   });
 
+  it.only("should check the checkbox", async () => {
+    render(
+      <Router>
+        <Provider store={store}>
+          <Listdetails />
+        </Provider>
+      </Router>
+    );
+
+    await act(() => userEvent.click(screen.getByTestId("fetchPosts")));
+    const check1 = await screen.findByTestId<HTMLInputElement>("1");
+    await act(() => userEvent.click(check1));
+    expect(check1.checked).toBeTruthy();
+
+    await act(async () =>
+      userEvent.click(await screen.findByText("Uncheck All"))
+    );
+
+    expect(check1.checked).toBeFalsy();
+  });
+
   afterAll(async () => {
     printLog("afterAll");
     server.close();

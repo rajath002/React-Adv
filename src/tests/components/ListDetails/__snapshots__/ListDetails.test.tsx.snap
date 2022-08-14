@@ -24,6 +24,9 @@ Object {
             >
               Get Posts
             </button>
+            <button>
+              Uncheck All
+            </button>
             <div
               class="post-card-container"
               data-testid="post-card-container"
@@ -52,6 +55,9 @@ Object {
             name="fetchPosts"
           >
             Get Posts
+          </button>
+          <button>
+            Uncheck All
           </button>
           <div
             class="post-card-container"
