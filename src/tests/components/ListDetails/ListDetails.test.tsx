@@ -5,7 +5,7 @@ import { rest } from "msw";
 import { setupServer } from "msw/node";
 import { act } from "react-dom/test-utils";
 import "@testing-library/jest-dom";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, MemoryRouter } from "react-router-dom";
 
 import { BASE_API } from "../../../utils/constants";
 
@@ -101,7 +101,7 @@ describe("ListDetails", () => {
     expect(vc.length).toEqual(100);
   });
 
-  it.only("should check the checkbox", async () => {
+  it("should check and uncheck the checkbox", async () => {
     render(
       <Router>
         <Provider store={store}>
@@ -111,15 +111,40 @@ describe("ListDetails", () => {
     );
 
     await act(() => userEvent.click(screen.getByTestId("fetchPosts")));
-    const check1 = await screen.findByTestId<HTMLInputElement>("1");
+    const check1 = await screen.findByTestId<HTMLInputElement>("chkbx-1");
     await act(() => userEvent.click(check1));
     expect(check1.checked).toBeTruthy();
-
     await act(async () =>
-      userEvent.click(await screen.findByText("Uncheck All"))
+      userEvent.click(await screen.findByTestId(/check-all/i))
+    );
+    await act(async () =>
+      userEvent.click(await screen.findByTestId(/uncheck-all/i))
+    );
+    expect(check1.checked).toBeFalsy();
+  });
+
+  // TODO: fix this test navigation is failing
+  it.only("move to details page", async () => {
+    render(
+      <MemoryRouter initialEntries={["/"]}>
+        <Provider store={store}>
+          <Listdetails />
+        </Provider>
+      </MemoryRouter>
     );
 
-    expect(check1.checked).toBeFalsy();
+    await act(() => userEvent.click(screen.getByTestId("fetchPosts")));
+    const showdDetails = await screen.findByTestId<HTMLButtonElement>(
+      "show-post-1"
+    );
+    await act(() => userEvent.click(showdDetails));
+    const text = await screen.findByText(
+      /Leanne Grahams/i,
+      {},
+      { timeout: 5000 }
+    );
+    console.log(text);
+    expect(text).toBeInTheDocument();
   });
 
   afterAll(async () => {

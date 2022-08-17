@@ -17,16 +17,22 @@ Object {
           <div
             class="posts"
           >
-            <button
-              data-testid="fetchPosts"
-              id="fetchPosts"
-              name="fetchPosts"
+            <div
+              class="main-action-buttons"
             >
-              Get Posts
-            </button>
-            <button>
-              Uncheck All
-            </button>
+              <button
+                data-testid="fetchPosts"
+                id="fetchPosts"
+                name="fetchPosts"
+              >
+                Get Posts
+              </button>
+              <button
+                data-testid="check-all"
+              >
+                Check All
+              </button>
+            </div>
             <div
               class="post-card-container"
               data-testid="post-card-container"
@@ -49,16 +55,22 @@ Object {
         <div
           class="posts"
         >
-          <button
-            data-testid="fetchPosts"
-            id="fetchPosts"
-            name="fetchPosts"
+          <div
+            class="main-action-buttons"
           >
-            Get Posts
-          </button>
-          <button>
-            Uncheck All
-          </button>
+            <button
+              data-testid="fetchPosts"
+              id="fetchPosts"
+              name="fetchPosts"
+            >
+              Get Posts
+            </button>
+            <button
+              data-testid="check-all"
+            >
+              Check All
+            </button>
+          </div>
           <div
             class="post-card-container"
             data-testid="post-card-container"
