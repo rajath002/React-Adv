@@ -124,7 +124,7 @@ describe("ListDetails", () => {
   });
 
   // TODO: fix this test navigation is failing
-  it.only("move to details page", async () => {
+  it.skip("move to details page", async () => {
     render(
       <MemoryRouter initialEntries={["/"]}>
         <Provider store={store}>
@@ -151,4 +151,7 @@ describe("ListDetails", () => {
     printLog("afterAll");
     server.close();
   });
+
+  
+  
 });
