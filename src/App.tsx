@@ -14,7 +14,9 @@ function App() {
     <ErrorBoundary>
       <Router>
         <div className="App">
-          <Link to={'/window-chat'}> Goto Window Chat</Link>
+          <header>
+            <Link to={"/window-chat"}> Window Chat</Link> 
+          </header>
           <Routes>
             <Route path="/" element={<Listdetails />}></Route>
             <Route path="/postdetails/:id" element={<PostDetails />} />

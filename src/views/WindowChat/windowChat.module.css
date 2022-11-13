@@ -9,17 +9,40 @@
 }
 
 .container > div {
-    border: 1px solid gray;
-    border-radius: 1rem;
-    height: 400px;
-    margin: 1rem;
+  border-radius: 1rem;
+  margin: 1rem;
 }
 
 .container > div:first-child {
-  background-color: green;
   width: 100%;
 }
 .container > div:last-child {
-  background-color: red;
   width: 100%;
+}
+/*------Window--------*/
+.window {
+  height: 400px;
+  overflow: auto;
+}
+
+.window_1 {
+  background-color: #cfd8dc;
+}
+.window_2 {
+  background-color: #b3e5fc;
+}
+
+/* -----------Chat---------- */
+.chat {
+  background-color: #a7ffeb;
+  padding: 5px;
+  border-radius: 20px 20px 20px 0;
+  margin: 5px;
+  width: 300px;
+}
+
+.chatBoxLeft {
+  margin-left: auto;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 20px;
 }
